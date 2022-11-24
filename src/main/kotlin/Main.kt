@@ -1,51 +1,60 @@
+import java.lang.Integer.toBinaryString
+
 fun main() {
-    print("Enter a decimal ip address: ")
-    val decimalIpAddress = readln()
-    val binaryIpAddress = convertToBinaryIpAddress(decimalIpAddress)
-    print("Binary ip address: $binaryIpAddress")
+    println("Convert IP address to binary (1) or decimal (2)?")
+    when (readln().toInt()) {
+        1 -> {
+            println("Enter a decimal IP address:")
+            val decimalIPAddress = readln()
+            val binaryIPAddress = convertToBinaryIPAddress(decimalIPAddress)
+            println("Binary IP address:\n$binaryIPAddress")
+        }
+
+        2 -> {
+            println("Enter a binary IP address:")
+            val binaryIPAddress = readln()
+            val decimalIPAddress = convertToDecimalIPAddress(binaryIPAddress)
+            println("Decimal IP address:\n$decimalIPAddress")
+        }
+
+        else -> println("Enter a valid number!")
+    }
 }
 
 /**
- * Converts a decimal to a binary ip address
+ * Converts a decimal to a binary IP address
  *
- * @param decimalIpAddress Ip address in decimal format
- * @return Ip address in binary format
+ * @param decimalIPAddress IP address in decimal format
+ * @return IP address in binary format
  */
-fun convertToBinaryIpAddress(decimalIpAddress: String): String {
-
-    // Save each octet of the ip address to a list
-    val octets = decimalIpAddress.split(".")
+fun convertToBinaryIPAddress(decimalIPAddress: String): String {
+    // Save each octet of the IP address to a list
+    val octets = decimalIPAddress.split(".")
     val result = octets.toMutableList()
 
     // Replace each decimal octet with a binary one
     for (i in octets.indices) {
-        result[i] = convertToBinaryNumber(octets[i].toInt())
+        result[i] = toBinaryString(octets[i].toInt()).padStart(8, '0')
     }
 
     return result.joinToString(".")
 }
 
 /**
- * Converts a given decimal to a binary number
+ * Converts a binary to a decimal IP address
  *
- * @param decimalNumber Number in decimal format
- * @return Binary number of decimal number (with leading zeros to get an octet)
+ * @param binaryIPAddress IP address in binary format
+ * @return IP address in decimal format
  */
-fun convertToBinaryNumber(decimalNumber: Int): String {
-    var currentQuotient = decimalNumber / 2
-    var currentRemainder = decimalNumber % 2
-    val result = MutableList(8) { 0 }
-    result[result.lastIndex] = currentRemainder
+fun convertToDecimalIPAddress(binaryIPAddress: String): String {
+    // Save each octet of the IP address to a list
+    val octets = binaryIPAddress.split(".")
+    val result = octets.toMutableList()
 
-    for (i in result.lastIndex - 1 downTo 0) {
-        if (currentQuotient != 0) {
-            currentRemainder = currentQuotient % 2
-            currentQuotient /= 2
-            result[i] = currentRemainder
-        } else {
-            break
-        }
+    // Replace each binary octet with a decimal one
+    for (i in octets.indices) {
+        result[i] = octets[i].toInt(2).toString()
     }
 
-    return result.joinToString("")
+    return result.joinToString(".")
 }
