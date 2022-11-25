@@ -1,24 +1,36 @@
 import java.lang.Integer.toBinaryString
 
 fun main() {
+    do {
+        convertIPAddress()
+        println("Convert another IP address? Yes (1) No (Any other number)")
+        val answer = readln().toInt()
+    } while (answer == 1)
+}
+
+fun convertIPAddress() {
     println("Convert IP address to binary (1) or decimal (2)?")
-    when (readln().toInt()) {
-        1 -> {
-            println("Enter a decimal IP address:")
-            val decimalIPAddress = readln()
-            val binaryIPAddress = convertToBinaryIPAddress(decimalIPAddress)
-            println("Binary IP address:\n$binaryIPAddress")
-        }
 
-        2 -> {
-            println("Enter a binary IP address:")
-            val binaryIPAddress = readln()
-            val decimalIPAddress = convertToDecimalIPAddress(binaryIPAddress)
-            println("Decimal IP address:\n$decimalIPAddress")
-        }
+    do {
+        val answer = readln().toInt()
+        when (answer) {
+            1 -> {
+                println("Enter a decimal IP address:")
+                val decimalIPAddress = readln()
+                val binaryIPAddress = convertToBinaryIPAddress(decimalIPAddress)
+                println("Binary IP address:\n$binaryIPAddress")
+            }
 
-        else -> println("Enter a valid number!")
-    }
+            2 -> {
+                println("Enter a binary IP address:")
+                val binaryIPAddress = readln()
+                val decimalIPAddress = convertToDecimalIPAddress(binaryIPAddress)
+                println("Decimal IP address:\n$decimalIPAddress")
+            }
+
+            else -> println("Enter a valid number!")
+        }
+    } while (answer !in listOf(1, 2))
 }
 
 /**
