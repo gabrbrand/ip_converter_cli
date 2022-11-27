@@ -2,33 +2,40 @@ import java.lang.Integer.toBinaryString
 
 fun main() {
     do {
-        convertIPAddress()
-        println("Convert another IP address? Yes (1) No (Any other number)")
+        convertIpAddress()
+
+        println("\u001B[34mConvert another IP address? Yes (1) No (Any other number)\u001B[0m")
         val answer = readln().toInt()
+
+        if (answer != 1) println("\u001B[33mThank you for using IP Converter!\u001B[0m")
     } while (answer == 1)
 }
 
-fun convertIPAddress() {
-    println("Convert IP address to binary (1) or decimal (2)?")
+fun convertIpAddress() {
+    println("\u001B[34mConvert IP address to binary (1) or decimal (2)?\u001B[0m")
 
     do {
         val answer = readln().toInt()
         when (answer) {
             1 -> {
-                println("Enter a decimal IP address:")
-                val decimalIPAddress = readln()
-                val binaryIPAddress = convertToBinaryIPAddress(decimalIPAddress)
-                println("Binary IP address:\n$binaryIPAddress")
+                println("\u001B[33mEnter a decimal IP address:\u001B[0m")
+                val decimalIpAddress = readln()
+
+                val binaryIpAddress = convertToBinaryIpAddress(decimalIpAddress)
+
+                println("\u001B[32mBinary IP address:\n\u001B[0m\u001B[92m$binaryIpAddress\u001b[0m")
             }
 
             2 -> {
-                println("Enter a binary IP address:")
-                val binaryIPAddress = readln()
-                val decimalIPAddress = convertToDecimalIPAddress(binaryIPAddress)
-                println("Decimal IP address:\n$decimalIPAddress")
+                println("\u001B[33mEnter a binary IP address:\u001B[0m")
+                val binaryIpAddress = readln()
+
+                val decimalIpAddress = convertToDecimalIpAddress(binaryIpAddress)
+
+                println("\u001B[32mDecimal IP address:\n\u001B[0m\u001B[92m$decimalIpAddress\u001B[0m")
             }
 
-            else -> println("Enter a valid number!")
+            else -> println("\u001B[31mEnter a valid number!\u001B[0m")
         }
     } while (answer !in listOf(1, 2))
 }
@@ -36,12 +43,12 @@ fun convertIPAddress() {
 /**
  * Converts a decimal to a binary IP address
  *
- * @param decimalIPAddress IP address in decimal format
+ * @param decimalIpAddress IP address in decimal format
  * @return IP address in binary format
  */
-fun convertToBinaryIPAddress(decimalIPAddress: String): String {
+fun convertToBinaryIpAddress(decimalIpAddress: String): String {
     // Save each octet of the IP address to a list
-    val octets = decimalIPAddress.split(".")
+    val octets = decimalIpAddress.split(".")
     val result = octets.toMutableList()
 
     // Replace each decimal octet with a binary one
@@ -55,12 +62,12 @@ fun convertToBinaryIPAddress(decimalIPAddress: String): String {
 /**
  * Converts a binary to a decimal IP address
  *
- * @param binaryIPAddress IP address in binary format
+ * @param binaryIpAddress IP address in binary format
  * @return IP address in decimal format
  */
-fun convertToDecimalIPAddress(binaryIPAddress: String): String {
+fun convertToDecimalIpAddress(binaryIpAddress: String): String {
     // Save each octet of the IP address to a list
-    val octets = binaryIPAddress.split(".")
+    val octets = binaryIpAddress.split(".")
     val result = octets.toMutableList()
 
     // Replace each binary octet with a decimal one
