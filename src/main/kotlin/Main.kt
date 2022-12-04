@@ -1,7 +1,7 @@
 import java.lang.Integer.toBinaryString
 
-val validDecimalCharacters = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.')
-val validBinaryCharacters = listOf('0', '1', '.')
+val validDecimalFormat = Regex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}") // e.g. 192.168.178.23
+val validBinaryFormat = Regex("[01]{8}\\.[01]{8}\\.[01]{8}\\.[01]{8}") // e.g. 11000000.10101000.10110010.00010111
 
 fun main() {
     do {
@@ -24,12 +24,10 @@ fun getAnswer(): Int {
 }
 
 fun checkAnswer(answer: String) {
-    if (!answer.all { it.isDigit() }) {
-        println("\u001B[31mThe entered answer isn't a number!\u001B[0m")
-    }
+    if (!answer.all { it.isDigit() }) println("\u001B[31mEnter an integer number!\u001B[0m")
 }
 
-fun isValidAnswer(answer: String): Boolean = answer.all { ch -> ch.isDigit() }
+fun isValidAnswer(answer: String): Boolean = answer.all { it.isDigit() }
 
 fun getIpAddress(type: String): String {
     var ipAddress: String
@@ -41,35 +39,21 @@ fun getIpAddress(type: String): String {
 }
 
 fun checkIpAddress(ipAddress: String, type: String) {
-    when (type) {
-        "decimal" -> {
-            if (!ipAddress.all { it in validDecimalCharacters }) {
-                val invalidDecimalCharacters = ipAddress.filter { ch -> ch !in validDecimalCharacters }
-                println(
-                    "\u001B[31mThe entered IP address contains invalid characters (${
-                        invalidDecimalCharacters.toList().joinToString()
-                    })!\u001B[0m"
-                )
-            }
+    if (
+        when (type) {
+            "decimal" -> !validDecimalFormat.matches(ipAddress)
+            "binary" -> !validBinaryFormat.matches(ipAddress)
+            else -> false // The passed type doesn't exist
         }
-
-        "binary" -> {
-            if (!ipAddress.all { it in validBinaryCharacters }) {
-                val invalidBinaryCharacters = ipAddress.filter { ch -> ch !in validBinaryCharacters }
-                println(
-                    "\u001B[31mThe entered IP address contains invalid characters (${
-                        invalidBinaryCharacters.toList().joinToString()
-                    })!\u001B[0m"
-                )
-            }
-        }
+    ) {
+        println("\u001B[31mEnter a valid IP address!\u001B[0m")
     }
 }
 
 fun isValidIpAddress(ipAddress: String, type: String): Boolean = when (type) {
-    "decimal" -> ipAddress.all { it in validDecimalCharacters }
-    "binary" -> ipAddress.all { it in validBinaryCharacters }
-    else -> false
+    "decimal" -> validDecimalFormat.matches(ipAddress)
+    "binary" -> validBinaryFormat.matches(ipAddress)
+    else -> false // The passed type doesn't exist
 }
 
 fun convertIpAddress() {
