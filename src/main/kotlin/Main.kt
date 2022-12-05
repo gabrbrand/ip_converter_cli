@@ -24,10 +24,10 @@ fun getAnswer(): Int {
 }
 
 fun checkAnswer(answer: String) {
-    if (!answer.all { it.isDigit() }) println("\u001B[31mEnter an integer number!\u001B[0m")
+    if (!answer.all { it.isDigit() } || answer.isEmpty()) println("\u001B[31mEnter an integer number!\u001B[0m")
 }
 
-fun isValidAnswer(answer: String): Boolean = answer.all { it.isDigit() }
+fun isValidAnswer(answer: String): Boolean = answer.all { it.isDigit() } && answer.isNotEmpty()
 
 fun getIpAddress(type: String): String {
     var ipAddress: String
