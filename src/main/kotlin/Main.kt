@@ -18,13 +18,9 @@ fun getAnswer(): Int {
     var answer: String
     do {
         answer = readln()
-        checkAnswer(answer)
+        if (!isValidAnswer(answer)) println("\u001B[31mEnter an integer number!\u001B[0m")
     } while (!isValidAnswer(answer))
     return answer.toInt()
-}
-
-fun checkAnswer(answer: String) {
-    if (!answer.all { it.isDigit() } || answer.isEmpty()) println("\u001B[31mEnter an integer number!\u001B[0m")
 }
 
 fun isValidAnswer(answer: String): Boolean = answer.all { it.isDigit() } && answer.isNotEmpty()
@@ -33,21 +29,9 @@ fun getIpAddress(type: String): String {
     var ipAddress: String
     do {
         ipAddress = readln()
-        checkIpAddress(ipAddress, type)
+        if (!isValidIpAddress(ipAddress, type)) println("\u001B[31mEnter a valid IP address!\u001B[0m")
     } while (!isValidIpAddress(ipAddress, type))
     return ipAddress
-}
-
-fun checkIpAddress(ipAddress: String, type: String) {
-    if (
-        when (type) {
-            "decimal" -> !validDecimalFormat.matches(ipAddress)
-            "binary" -> !validBinaryFormat.matches(ipAddress)
-            else -> false // The passed type doesn't exist
-        }
-    ) {
-        println("\u001B[31mEnter a valid IP address!\u001B[0m")
-    }
 }
 
 fun isValidIpAddress(ipAddress: String, type: String): Boolean = when (type) {
