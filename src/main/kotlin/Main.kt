@@ -18,7 +18,7 @@ fun getAnswer(): Int {
     var answer: String
     do {
         answer = readln()
-        if (!isValidAnswer(answer)) println("\u001B[31mEnter an integer number!\u001B[0m")
+        if (!isValidAnswer(answer)) println("\u001B[31mEnter a (positive) integer number!\u001B[0m")
     } while (!isValidAnswer(answer))
     return answer.toInt()
 }
