@@ -1,5 +1,3 @@
-import java.lang.Integer.toBinaryString
-
 val validDecimalFormat = Regex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}") // e.g. 192.168.178.23
 val validBinaryFormat = Regex("[01]{8}\\.[01]{8}\\.[01]{8}\\.[01]{8}") // e.g. 11000000.10101000.10110010.00010111
 
@@ -82,7 +80,7 @@ fun convertToBinaryIpAddress(decimalIpAddress: String): String {
 
     // Replace each decimal octet with a binary one
     for (i in octets.indices) {
-        result[i] = toBinaryString(octets[i].toInt()).padStart(8, '0')
+        result[i] = octets[i].toInt().toString(2).padStart(8, '0')
     }
 
     return result.joinToString(".")
