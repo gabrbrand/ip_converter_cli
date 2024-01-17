@@ -23,7 +23,9 @@ fun getAnswer(): Int {
 
 fun isValidAnswer(answer: String): Boolean = answer.all { it.isDigit() } && answer.isNotEmpty()
 
-fun getIpAddress(type: String): String {
+enum class Type { DECIMAL, BINARY }
+
+fun getIpAddress(type: Type): String {
     var ipAddress: String
     do {
         ipAddress = readln()
@@ -32,10 +34,9 @@ fun getIpAddress(type: String): String {
     return ipAddress
 }
 
-fun isValidIpAddress(ipAddress: String, type: String): Boolean = when (type) {
-    "decimal" -> validDecimalFormat.matches(ipAddress)
-    "binary" -> validBinaryFormat.matches(ipAddress)
-    else -> false // The passed type doesn't exist
+fun isValidIpAddress(ipAddress: String, type: Type): Boolean = when (type) {
+    Type.DECIMAL -> validDecimalFormat.matches(ipAddress)
+    Type.BINARY -> validBinaryFormat.matches(ipAddress)
 }
 
 fun convertIpAddress() {
@@ -46,7 +47,7 @@ fun convertIpAddress() {
         when (answer) {
             1 -> {
                 println("\u001B[33mEnter a decimal IP address:\u001B[0m")
-                val decimalIpAddress = getIpAddress("decimal")
+                val decimalIpAddress = getIpAddress(Type.DECIMAL)
 
                 val binaryIpAddress = convertToBinaryIpAddress(decimalIpAddress)
 
@@ -55,7 +56,7 @@ fun convertIpAddress() {
 
             2 -> {
                 println("\u001B[33mEnter a binary IP address:\u001B[0m")
-                val binaryIpAddress = getIpAddress("binary")
+                val binaryIpAddress = getIpAddress(Type.BINARY)
 
                 val decimalIpAddress = convertToDecimalIpAddress(binaryIpAddress)
 
